@@ -1,4 +1,4 @@
-// chessboard.js v@VERSION
+// chessboard.js v1.0.0
 // https://github.com/oakmac/chessboardjs/
 //
 // Copyright (c) 2019, Chris Oakman
@@ -19,7 +19,7 @@
   var DEFAULT_DRAG_THROTTLE_RATE = 20
   var ELLIPSIS = '…'
   var MINIMUM_JQUERY_VERSION = '1.8.3'
-  var RUN_ASSERTS = true
+  var RUN_ASSERTS = false
   var START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'
   var START_POSITION = fenToObj(START_FEN)
 
@@ -120,11 +120,11 @@
     minimum = parseSemVer(minimum)
 
     var versionNum = (version.major * 100000 * 100000) +
-                     (version.minor * 100000) +
-                     version.patch
+      (version.minor * 100000) +
+      version.patch
     var minimumNum = (minimum.major * 100000 * 100000) +
-                     (minimum.minor * 100000) +
-                     minimum.patch
+      (minimum.minor * 100000) +
+      minimum.patch
 
     return versionNum >= minimumNum
   }
@@ -142,12 +142,12 @@
   }
 
   if (RUN_ASSERTS) {
-    console.assert(interpolateTemplate('abc', {a: 'x'}) === 'abc')
+    console.assert(interpolateTemplate('abc', { a: 'x' }) === 'abc')
     console.assert(interpolateTemplate('{a}bc', {}) === '{a}bc')
-    console.assert(interpolateTemplate('{a}bc', {p: 'q'}) === '{a}bc')
-    console.assert(interpolateTemplate('{a}bc', {a: 'x'}) === 'xbc')
-    console.assert(interpolateTemplate('{a}bc{a}bc', {a: 'x'}) === 'xbcxbc')
-    console.assert(interpolateTemplate('{a}{a}{b}', {a: 'x', b: 'y'}) === 'xxy')
+    console.assert(interpolateTemplate('{a}bc', { p: 'q' }) === '{a}bc')
+    console.assert(interpolateTemplate('{a}bc', { a: 'x' }) === 'xbc')
+    console.assert(interpolateTemplate('{a}bc{a}bc', { a: 'x' }) === 'xbcxbc')
+    console.assert(interpolateTemplate('{a}{a}{b}', { a: 'x', b: 'y' }) === 'xxy')
   }
 
   // ---------------------------------------------------------------------------
@@ -164,8 +164,8 @@
 
   function isInteger (n) {
     return typeof n === 'number' &&
-           isFinite(n) &&
-           Math.floor(n) === n
+      isFinite(n) &&
+      Math.floor(n) === n
   }
 
   function validAnimationSpeed (speed) {
@@ -176,7 +176,7 @@
 
   function validThrottleRate (rate) {
     return isInteger(rate) &&
-           rate >= 1
+      rate >= 1
   }
 
   function validMove (move) {
@@ -239,7 +239,7 @@
     // check each section
     for (var i = 0; i < 8; i++) {
       if (chunks[i].length !== 8 ||
-          chunks[i].search(/[^kqrnbpKQRNBP1]/) !== -1) {
+        chunks[i].search(/[^kqrnbpKQRNBP1]/) !== -1) {
         return false
       }
     }
@@ -278,10 +278,10 @@
   if (RUN_ASSERTS) {
     console.assert(validPositionObject(START_POSITION))
     console.assert(validPositionObject({}))
-    console.assert(validPositionObject({e2: 'wP'}))
-    console.assert(validPositionObject({e2: 'wP', d2: 'wP'}))
-    console.assert(!validPositionObject({e2: 'BP'}))
-    console.assert(!validPositionObject({y2: 'wP'}))
+    console.assert(validPositionObject({ e2: 'wP' }))
+    console.assert(validPositionObject({ e2: 'wP', d2: 'wP' }))
+    console.assert(!validPositionObject({ e2: 'BP' }))
+    console.assert(!validPositionObject({ y2: 'wP' }))
     console.assert(!validPositionObject(null))
     console.assert(!validPositionObject('start'))
     console.assert(!validPositionObject(START_FEN))
@@ -293,9 +293,9 @@
 
   function validJQueryVersion () {
     return typeof window.$ &&
-           $.fn &&
-           $.fn.jquery &&
-           validSemanticVersion($.fn.jquery, MINIMUM_JQUERY_VERSION)
+      $.fn &&
+      $.fn.jquery &&
+      validSemanticVersion($.fn.jquery, MINIMUM_JQUERY_VERSION)
   }
 
   // ---------------------------------------------------------------------------
@@ -400,7 +400,7 @@
   if (RUN_ASSERTS) {
     console.assert(objToFen(START_POSITION) === START_FEN)
     console.assert(objToFen({}) === '8/8/8/8/8/8/8/8')
-    console.assert(objToFen({a2: 'wP', 'b2': 'bP'}) === '8/8/8/8/8/8/Pp6/8')
+    console.assert(objToFen({ a2: 'wP', 'b2': 'bP' }) === '8/8/8/8/8/8/Pp6/8')
   }
 
   function squeezeFenEmptySquares (fen) {
@@ -540,11 +540,11 @@
 
   function expandConfigArgumentShorthand (config) {
     if (config === 'start') {
-      config = {position: deepCopy(START_POSITION)}
+      config = { position: deepCopy(START_POSITION) }
     } else if (validFen(config)) {
-      config = {position: fenToObj(config)}
+      config = { position: fenToObj(config) }
     } else if (validPositionObject(config)) {
-      config = {position: deepCopy(config)}
+      config = { position: deepCopy(config) }
     }
 
     // config must be an object
@@ -575,7 +575,7 @@
 
     // default piece theme is wikipedia
     if (!config.hasOwnProperty('pieceTheme') ||
-        (!isString(config.pieceTheme) && !isFunction(config.pieceTheme))) {
+      (!isString(config.pieceTheme) && !isFunction(config.pieceTheme))) {
       config.pieceTheme = 'img/chesspieces/wikipedia/{piece}.png'
     }
 
@@ -623,7 +623,7 @@
 
     // convert containerEl to query selector if it is a string
     if (isString(containerElOrString) &&
-        containerElOrString.charAt(0) !== '#') {
+      containerElOrString.charAt(0) !== '#') {
       containerElOrString = '#' + containerElOrString
     }
 
@@ -689,7 +689,7 @@
       // do nothing if showErrors is not set
       if (
         config.hasOwnProperty('showErrors') !== true ||
-          config.showErrors === false
+        config.showErrors === false
       ) {
         return
       }
@@ -699,8 +699,8 @@
       // print to console
       if (
         config.showErrors === 'console' &&
-          typeof console === 'object' &&
-          typeof console.log === 'function'
+        typeof console === 'object' &&
+        typeof console.log === 'function'
       ) {
         console.log(errorText)
         if (arguments.length >= 2) {
@@ -826,7 +826,7 @@
           if (config.showNotation) {
             // alpha notation
             if ((orientation === 'white' && row === 1) ||
-                (orientation === 'black' && row === 8)) {
+              (orientation === 'black' && row === 8)) {
               html += '<div class="{notation} {alpha}">' + alpha[j] + '</div>'
             }
 
@@ -860,7 +860,7 @@
       }
 
       if (isString(config.pieceTheme)) {
-        return interpolateTemplate(config.pieceTheme, {piece: piece})
+        return interpolateTemplate(config.pieceTheme, { piece: piece })
       }
 
       // NOTE: this should never happen
@@ -992,6 +992,7 @@
       if (animations.length === 0) return
 
       var numFinished = 0
+
       function onFinishAnimation3 () {
         // exit if all the animations aren't finished
         numFinished = numFinished + 1
@@ -1013,18 +1014,18 @@
           $('#' + squareElsIds[animation.square] + ' .' + CSS.piece)
             .fadeOut(config.trashSpeed, onFinishAnimation3)
 
-        // add a piece with no spare pieces - fade the piece onto the square
+          // add a piece with no spare pieces - fade the piece onto the square
         } else if (animation.type === 'add' && !config.sparePieces) {
           $('#' + squareElsIds[animation.square])
             .append(buildPieceHTML(animation.piece, true))
             .find('.' + CSS.piece)
             .fadeIn(config.appearSpeed, onFinishAnimation3)
 
-        // add a piece with spare pieces - animate from the spares
+          // add a piece with spare pieces - animate from the spares
         } else if (animation.type === 'add' && config.sparePieces) {
           animateSparePieceToSquare(animation.piece, animation.square, onFinishAnimation3)
 
-        // move a piece from squareA to squareB
+          // move a piece from squareA to squareB
         } else if (animation.type === 'move') {
           animateSquareToSquare(animation.source, animation.destination, animation.piece, onFinishAnimation3)
         }
@@ -1158,9 +1159,9 @@
 
         var s = squareElsOffsets[i]
         if (x >= s.left &&
-            x < s.left + squareSize &&
-            y >= s.top &&
-            y < s.top + squareSize) {
+          x < s.left + squareSize &&
+          y >= s.top &&
+          y < s.top + squareSize) {
           return i
         }
       }
@@ -1280,7 +1281,7 @@
       // run their custom onDragStart function
       // their custom onDragStart function can cancel drag start
       if (isFunction(config.onDragStart) &&
-          config.onDragStart(source, piece, deepCopy(currentPosition), currentOrientation) === false) {
+        config.onDragStart(source, piece, deepCopy(currentPosition), currentOrientation) === false) {
         return
       }
 
@@ -1304,7 +1305,8 @@
         display: '',
         position: 'absolute',
         left: x - squareSize / 2,
-        top: y - squareSize / 2
+        top: y - squareSize / 2,
+        zIndex: 1
       })
 
       if (source !== 'spare') {
@@ -1739,10 +1741,27 @@
     function addEvents () {
       // prevent "image drag"
       $('body').on('mousedown mousemove', '.' + CSS.piece, stopDefault)
+      const BEFORE_DRAG_DELAY = 180
 
       // mouse drag pieces
-      $board.on('mousedown', '.' + CSS.square, mousedownSquare)
-      $container.on('mousedown', '.' + CSS.sparePieces + ' .' + CSS.piece, mousedownSparePiece)
+      let boardTimeout
+      $board.on('mousedown', '.' + CSS.square, (evt) => {
+        boardTimeout = setTimeout(mousedownSquare.bind(evt.currentTarget, evt), BEFORE_DRAG_DELAY)
+      })
+      $board.on('mouseup', '.' + CSS.square, () => {
+        clearTimeout(boardTimeout)
+      })
+
+      let containerTimeout
+      $container.on('mousedown', '.' + CSS.sparePieces + ' .' + CSS.piece, (evt) => {
+        containerTimeout = setTimeout(mousedownSparePiece.bind(evt.currentTarget, evt), BEFORE_DRAG_DELAY)
+      })
+      $container.on('mouseup', '.' + CSS.sparePieces + ' .' + CSS.piece, () => {
+        clearTimeout(containerTimeout)
+      })
+
+      // $board.on('mousedown', '.' + CSS.square, mousedownSquare)
+      // $container.on('mousedown', '.' + CSS.sparePieces + ' .' + CSS.piece, mousedownSparePiece)
 
       // mouse enter / leave square
       $board
@@ -1757,8 +1776,25 @@
 
       // touch drag pieces
       if (isTouchDevice()) {
-        $board.on('touchstart', '.' + CSS.square, touchstartSquare)
-        $container.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece, touchstartSparePiece)
+        let boardTimeout
+        $board.on('touchstart', '.' + CSS.square, (evt) => {
+          boardTimeout = setTimeout(touchstartSquare.bind(evt.currentTarget, evt), BEFORE_DRAG_DELAY)
+        })
+        $board.on('touchend', '.' + CSS.square, () => {
+          clearTimeout(boardTimeout)
+        })
+
+        let containerTimeout
+        $container.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece, (evt) => {
+          containerTimeout = setTimeout(touchstartSparePiece.bind(evt.currentTarget, evt), BEFORE_DRAG_DELAY)
+        })
+        $container.on('touchend', '.' + CSS.sparePieces + ' .' + CSS.piece, () => {
+          clearTimeout(containerTimeout)
+        })
+
+        // $board.on('touchstart', '.' + CSS.square, touchstartSquare)
+        // $container.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece, touchstartSparePiece)
+
         $window
           .on('touchmove', throttledTouchmoveWindow)
           .on('touchend', touchendWindow)
@@ -1815,9 +1851,3 @@
   window['Chessboard']['fenToObj'] = fenToObj
   window['Chessboard']['objToFen'] = objToFen
 })() // end anonymous wrapper
-
-/* export Chessboard object if using node or any other CommonJS compatible
- * environment */
-if (typeof exports !== 'undefined') {
-  exports.Chessboard = window.Chessboard
-}
