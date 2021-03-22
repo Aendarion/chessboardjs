@@ -921,7 +921,8 @@
         display: '',
         position: 'absolute',
         top: srcSquarePosition.top,
-        left: srcSquarePosition.left
+        left: srcSquarePosition.left,
+        zIndex: 1
       })
 
       // remove original piece from source square
