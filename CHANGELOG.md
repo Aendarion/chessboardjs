@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0.1] - 2013-08-10
+- Added `zIndex` for elements that used in animations and drag
+- Added delay to `mousedown` and `touchdown` event
+
 ## [1.0.0] - 2019-06-11
 - Orientation methods now return current orientation. [Issue #64]
 - Drop support for IE8
